@@ -33,9 +33,10 @@ public class IOManager {
 	
 	public String readFromFile(String path) {
 		try {
-			@SuppressWarnings("resource")
 			BufferedReader reader = new BufferedReader(new FileReader(path));
-			return reader.readLine();
+			String line = reader.readLine();
+			reader.close();
+			return line;
 		} catch (IOException e) {
 			consoleOut.println("Error Reading from file");
 			e.printStackTrace();
