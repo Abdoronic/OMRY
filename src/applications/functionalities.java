@@ -2,7 +2,6 @@ package applications;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -35,26 +34,7 @@ public class functionalities {
 
 	private static String organizer(String result) {
 		if (result.contains("make alarm at") || result.contains("set alarm at") || result.contains("set meeting at")) {
-			String[] tmp = result.split(" ");
-			int i = 0;
-			int type = -1;
-			for (i = 0; i < tmp.length; i++) {
-				if (tmp[i].equals("meeting"))
-					type = 1;
-				if (tmp[i].contains("alarm"))
-					type = 0;
-				if (tmp[i].equals("at"))
-					break;
-			}
-			try {
-				if (type == -1)
-					throw new Exception("Type can not be specified");
-				int hour = Integer.parseInt(tmp[i].split(":")[0]) * 100 + Integer.parseInt(tmp[i].split(":")[1]);
-				event.add(new Event(hour, type));
-				return "Alarm Setted";
-			} catch (Exception e) {
-				return "Reapeat again alarm wasn't setted";
-			}
+			return Alarm_Meeting(result);
 		} else if (result.equals("what is the time now")) {
 			return time();
 		} else if (result.substring(0, 4).equals("call")) {
@@ -68,7 +48,29 @@ public class functionalities {
 
 		return "what are you saying";
 	}
-
+	private static String Alarm_Meeting(String result)
+	{
+		String[] tmp = result.split(" ");
+		int i = 0;
+		int type = -1;
+		for (i = 0; i < tmp.length; i++) {
+			if (tmp[i].equals("meeting"))
+				type = 1;
+			if (tmp[i].contains("alarm"))
+				type = 0;
+			if (tmp[i].equals("at"))
+				break;
+		}
+		try {
+			if (type == -1)
+				throw new Exception("Type can not be specified");
+			int hour = Integer.parseInt(tmp[i].split(":")[0]) * 100 + Integer.parseInt(tmp[i].split(":")[1]);
+			event.add(new Event(hour, type));
+			return "Alarm Setted";
+		} catch (Exception e) {
+			return "Reapeat again alarm wasn't setted";
+		}
+	}
 	private static String joke() {
 		String[] x = { "Today at the bank, an old lady asked me to help check her balance. So I pushed her over",
 				"I bought some shoes from a drug dealer. I don't know what he laced them with, but I've been tripping all day",
@@ -88,8 +90,8 @@ public class functionalities {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		String path = "C:/Users/moham/Spyder-python/Output.TXT";
-		String path = new File("").getAbsolutePath() + "/src/disk/output.txt";
+		String path = "D:\\Eclipse\\OMRY\\src\\disk\\output.txt";
+//		String path = new File("").getAbsolutePath() + "\\sr\\dis\\output.txt";
 		while (true) {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(path));
