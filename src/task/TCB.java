@@ -1,13 +1,13 @@
-package proc;
+package task;
 
-public class PCB {
+public class TCB {
 	
 	private long processID;
 	private long parentID;
 	private boolean type;  //Kernel or user
-	private int processState;
+	private Status processState;
 	
-	public PCB(long processID, long parentID, boolean type, int processState) {
+	public TCB(long processID, long parentID, boolean type, Status processState) {
 		this.processID = processID;
 		this.parentID = parentID;
 		this.type = type;
@@ -38,16 +38,11 @@ public class PCB {
 		this.type = type;
 	}
 
-	public int getProcessState() {
+	public Status getProcessState() {
 		return processState;
 	}
 
-	public void setProcessState(int processState) {
-		//0 -> ready
-		//1 -> running
-		//2 -> blocked
-		//3 -> passed Deadline (late)
-		//4 -> terminated
+	public void setProcessState(Status processState) {
 		this.processState = processState;
 	}
 	
