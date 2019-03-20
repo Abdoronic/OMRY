@@ -1,0 +1,15 @@
+greetings
+time
+calling
+jokes
+pending alarm
+pending meetings
+pending notification
+pending weather
+bye bye for termination
+
+
+to run python CMD:
+pip install SpeechRecognition
+pip install pyaudio
+pip install pyttsx
