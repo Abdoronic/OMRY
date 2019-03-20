@@ -67,9 +67,6 @@ public class functionalities {
 		}
 
 		return "what are you saying";
-
-		// make comparable
-
 	}
 
 	private static String joke() {
@@ -87,14 +84,12 @@ public class functionalities {
 	private static String time() {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 		Date date = new Date();
-		String x = dateFormat.format(date);
-		int y = Integer.parseInt(x.substring(0, 2));
 		return dateFormat.format(date);
 	}
 
 	public static void main(String[] args) throws Exception {
 //		String path = "C:/Users/moham/Spyder-python/Output.TXT";
-		String path = new File("").getAbsolutePath() + "/";
+		String path = new File("").getAbsolutePath() + "/src/disk/output.txt";
 		while (true) {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(path));
