@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.PriorityQueue;
 
-public class functionalities {
+public class Functionalities {
 	static class Event implements Comparable<Event> {
 		int type, time;
 
@@ -39,14 +39,18 @@ public class functionalities {
 			return time();
 		} else if (result.substring(0, 4).equals("call")) {
 			return "calling " + result.substring(5, result.length());
-		} else if (result.equals("good morning") || result.equals("good afternoon") || result.equals("good evening")
-				|| result.equals("hey") || result.equals("hello")) {
+		} else if (Greeting(result)) {
 			return "hello";
 		} else if (result.equals("tell me a joke")) {
 			return joke();
 		}
 
 		return "what are you saying";
+	}
+	private static boolean Greeting(String result)
+	{
+		return result.equals("good morning") || result.equals("good afternoon") || result.equals("good evening")
+				|| result.equals("hey") || result.equals("hello");
 	}
 	private static String Alarm_Meeting(String result)
 	{
