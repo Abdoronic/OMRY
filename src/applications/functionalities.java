@@ -31,17 +31,21 @@ public class Functionalities {
 	}
 
 	static PriorityQueue<Event> event = new PriorityQueue<>();
-
 	private static String organizer(String result) {
 		if (result.contains("make alarm at") || result.contains("set alarm at") || result.contains("set meeting at")) {
 			return Alarm_Meeting(result);
-		} else if (result.equals("what is the time now")) {
+		} else if (result.contains("time")) {
 			return time();
-		} else if (result.substring(0, 4).equals("call")) {
-			return "calling " + result.substring(5, result.length());
+		} else if (result.contains("call")) {
+			String[] x=result.split(" ");
+			for(int i=0;i<x.length;i++) {
+				if(x[i].equals("call")) {
+					return "calling "+x[i+1];
+				}
+			}
 		} else if (Greeting(result)) {
-			return "hello";
-		} else if (result.equals("tell me a joke")) {
+			return "hello welcome back sir";
+		} else if (result.contains("joke")) {
 			return joke();
 		}
 
