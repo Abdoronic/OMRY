@@ -2,7 +2,6 @@ package applications;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.PriorityQueue;
 
-public class functionalities {
+public class Functionalities {
 	static class Event implements Comparable<Event> {
 		int type, time;
 
@@ -32,43 +31,54 @@ public class functionalities {
 	}
 
 	static PriorityQueue<Event> event = new PriorityQueue<>();
-
 	private static String organizer(String result) {
 		if (result.contains("make alarm at") || result.contains("set alarm at") || result.contains("set meeting at")) {
-			String[] tmp = result.split(" ");
-			int i = 0;
-			int type = -1;
-			for (i = 0; i < tmp.length; i++) {
-				if (tmp[i].equals("meeting"))
-					type = 1;
-				if (tmp[i].contains("alarm"))
-					type = 0;
-				if (tmp[i].equals("at"))
-					break;
-			}
-			try {
-				if (type == -1)
-					throw new Exception("Type can not be specified");
-				int hour = Integer.parseInt(tmp[i].split(":")[0]) * 100 + Integer.parseInt(tmp[i].split(":")[1]);
-				event.add(new Event(hour, type));
-				return "Alarm Setted";
-			} catch (Exception e) {
-				return "Reapeat again alarm wasn't setted";
-			}
-		} else if (result.equals("what is the time now")) {
+			return Alarm_Meeting(result);
+		} else if (result.contains("time")) {
 			return time();
-		} else if (result.substring(0, 4).equals("call")) {
-			return "calling " + result.substring(5, result.length());
-		} else if (result.equals("good morning") || result.equals("good afternoon") || result.equals("good evening")
-				|| result.equals("hey") || result.equals("hello")) {
-			return "hello";
-		} else if (result.equals("tell me a joke")) {
+		} else if (result.contains("call")) {
+			String[] x=result.split(" ");
+			for(int i=0;i<x.length;i++) {
+				if(x[i].equals("call")) {
+					return "calling "+x[i+1];
+				}
+			}
+		} else if (Greeting(result)) {
+			return "hello welcome back sir";
+		} else if (result.contains("joke")) {
 			return joke();
 		}
 
 		return "what are you saying";
 	}
-
+	private static boolean Greeting(String result)
+	{
+		return result.equals("good morning") || result.equals("good afternoon") || result.equals("good evening")
+				|| result.equals("hey") || result.equals("hello");
+	}
+	private static String Alarm_Meeting(String result)
+	{
+		String[] tmp = result.split(" ");
+		int i = 0;
+		int type = -1;
+		for (i = 0; i < tmp.length; i++) {
+			if (tmp[i].equals("meeting"))
+				type = 1;
+			if (tmp[i].contains("alarm"))
+				type = 0;
+			if (tmp[i].equals("at"))
+				break;
+		}
+		try {
+			if (type == -1)
+				throw new Exception("Type can not be specified");
+			int hour = Integer.parseInt(tmp[i].split(":")[0]) * 100 + Integer.parseInt(tmp[i].split(":")[1]);
+			event.add(new Event(hour, type));
+			return "Alarm Setted";
+		} catch (Exception e) {
+			return "Reapeat again alarm wasn't setted";
+		}
+	}
 	private static String joke() {
 		String[] x = { "Today at the bank, an old lady asked me to help check her balance. So I pushed her over",
 				"I bought some shoes from a drug dealer. I don't know what he laced them with, but I've been tripping all day",
@@ -88,8 +98,8 @@ public class functionalities {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		String path = "C:/Users/moham/Spyder-python/Output.TXT";
-		String path = new File("").getAbsolutePath() + "/src/disk/output.txt";
+		String path = "D:\\Eclipse\\OMRY\\src\\disk\\output.txt";
+//		String path = new File("").getAbsolutePath() + "\\sr\\dis\\output.txt";
 		while (true) {
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(path));

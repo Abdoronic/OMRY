@@ -1,17 +1,18 @@
 package core;
 
 public class Semaphore {
-	boolean s;
+	private boolean s;
 	
-	public Semaphore() {
-		s = true;
+	public Semaphore(boolean s) {
+		this.s = s;
 	}
 	
 	public void await() {
-		
+//		while(!s);
+//		s = false;
 	}
 	
 	public void signal() {
-		
+//		s = true;
 	}
 }
