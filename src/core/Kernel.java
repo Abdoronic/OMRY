@@ -1,6 +1,5 @@
 package core;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
@@ -8,13 +7,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.google.common.util.concurrent.Service.State;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 
 import applications.Alarm;
 import applications.Call;
-import applications.DummyProg;
 import applications.Greeting;
 import applications.Joke;
 import applications.Meeting;
