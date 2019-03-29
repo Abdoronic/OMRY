@@ -1,14 +1,9 @@
 package core;
 
 import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.SimpleDateFormat;
 
 import applications.Alarm;
 import applications.Call;
@@ -29,8 +24,6 @@ public class Kernel {
 	private Semaphore semaphore;
 	private OMRY omry;
 	static int TC = 1;
-	private static String filePath = "D:\\Eclipse\\OMRY\\src\\disk\\output.txt";
-	private static String pythonPath = "python D:\\Eclipse\\helloworld\\temp.py";
 	private long processID;
 	public Kernel() throws IOException, InterruptedException {
 		meomoryManager = new MemoryManager(256 << 20);
@@ -38,10 +31,9 @@ public class Kernel {
 		ioManager = new IOManager();
 		taskManager = new TaskManager();
 		ioManager.writeToConsole("OMRY is turned on!");
-		omry = new OMRY(pythonPath, filePath);
+		omry = new OMRY();
 		processID = 0;
 		semaphore = new Semaphore(true);
-		FileChannel.open(Paths.get(filePath), StandardOpenOption.WRITE).truncate(0).close();
 //		DummyProg p1 = new DummyProg(this, new TCB(TC++, 0, false, Status.NEW),
 //				System.currentTimeMillis() + 10000, "P1");
 //		taskManager.addTask(p1);
@@ -132,6 +124,7 @@ public class Kernel {
 		return result.contains("morning") || result.equals("good afternoon") || result.equals("good evening")
 				|| result.equals("hey") || result.equals("hello") || result.contains("hey omry");
 	}
+	@SuppressWarnings("deprecation")
 	private Task Alarm_Meeting(String result, TCB tcb) throws IOException, InterruptedException
 	{
 		String[] tmp = result.split(" ");
@@ -155,18 +148,19 @@ public class Kernel {
 				throw new Exception("Type can not be specified");
 			String h=tmp[i].split(":")[0];
 			String m=tmp[i].split(":")[1];
+			int hours = Integer.parseInt(h);
+			int minutes = Integer.parseInt(m);
 			System.out.println(Arrays.toString(tmp));
 			System.out.println(h+"   "+m);
-//			int hour = Integer.parseInt(h) * 60 * 60 * 100 + Integer.parseInt(m) * 60 * 100;
-			DateFormat df = new SimpleDateFormat("HH:mm");
-			Date date1 = new Date();
-			Date date2 = df.parse(h+":"+m);
-			long diff = date1.getTime() - date2.getTime();
+			Date date = new Date();
+			date.setHours(hours);
+			date.setMinutes(minutes);
+			long millis = date.getTime() ;
 			Task t;
 			if(type==1)
-				t = new Meeting(this, tcb, diff, "Someone i don't know", omry, semaphore);
+				t = new Meeting(this, tcb, millis, "Someone i don't know", omry, semaphore);
 			else
-				t = new Alarm(this, tcb, diff, omry, semaphore);
+				t = new Alarm(this, tcb, millis, omry, semaphore);
 			semaphore.await();
 			omry.talk("Alarm Setted at "+h+":"+m);
 			semaphore.signal();

@@ -41,9 +41,13 @@ public class TaskManager {
 			next.getPcb().setProcessState(Status.PASSED_DEADLINE);
 			lateQueue.add(next);
 			runNextTask();
+			System.err.println("here1");
 		} else {
 			if(next.getPcb().getProcessState() == Status.NEW)
+			{
 				next.start();
+				System.err.println("start");
+			}
 			else {
 				System.err.println("yalla ya mada fa");
 				synchronized (next) {
@@ -81,6 +85,7 @@ public class TaskManager {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void unblockListenInterrupt() {
 		if(runningTask != null) {
 			runningTask.getPcb().setProcessState(Status.RUNNING);

@@ -1,6 +1,5 @@
 package applications;
 
-import java.io.IOException;
 
 import core.Kernel;
 import core.OMRY;
