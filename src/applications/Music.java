@@ -12,9 +12,9 @@ import core.Semaphore;
 import task.TCB;
 import task.Task;
 
-public class Alarm extends Task implements Runnable{
+public class Music extends Task implements Runnable{
 
-	public Alarm(Kernel kernal, TCB tcb, long deadline, OMRY omry, Semaphore semaphore){
+	public Music(Kernel kernal, TCB tcb, long deadline, OMRY omry, Semaphore semaphore){
 		super(kernal, tcb, deadline, omry, semaphore);
 	}
 	@Override
@@ -24,13 +24,15 @@ public class Alarm extends Task implements Runnable{
 //			getSemaphore().await();
 //			getOmry().talk("Alarm Alarm Alarm Alarm");
 //			getSemaphore().signal();
-			File f = new File("4.wav"); // choose form 3 or 4
-			System.out.println("the alarm is playing...");
+			File f = new File("1.wav"); // choose form 3 or 4
+			System.out.println("the song is playing...");
 			AudioInputStream audio = AudioSystem.getAudioInputStream(f);
 			Clip c = AudioSystem.getClip();
 			c.open(audio);
 			c.start();
-			while(c.isActive()) {}
+			while(!c.isActive()) {}// this beacause it may check for c.isActive fast
+			while(c.isActive() && !getKernal().stopMusic()) {}
+			c.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

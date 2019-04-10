@@ -29,8 +29,9 @@ public class Joke extends Task implements Runnable{
 		getKernal().getTaskManager().terminateRunnigTask();
 	}
 	private static String joke() {
-		String[] x = { "Today at the bank, an old lady asked me to help check her balance. So I pushed her over",
-				"I bought some shoes from a drug dealer. I don't know what he laced them with, but I've been tripping all day",
+		String[] x = { 
+				"An old lady asked me to help check her balance. So I pushed her over",
+				"I bought some shoes from a drug dealer.",
 				"I'm so good at sleeping. I can do it with my eyes closed",
 				"My boss told me to have a good day.. so I went home",
 				"Why do blind people hate skydiving? It scares the hell out of their dogs",

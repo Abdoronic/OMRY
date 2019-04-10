@@ -10,13 +10,16 @@ import applications.Call;
 import applications.Greeting;
 import applications.Joke;
 import applications.Meeting;
+import applications.Music;
 import applications.Time;
+import applications.Weather;
 import task.Status;
 import task.TCB;
 import task.Task;
 
 public class Kernel {
 
+	private boolean stopMusic;
 	private FileSystem fileSystem;
 	private IOManager ioManager;
 	private MemoryManager meomoryManager;
@@ -56,12 +59,14 @@ public class Kernel {
 //				System.currentTimeMillis() + 1000, "P3");
 //		taskManager.addTask(p3);
 		
-		runShell();
+//		runShell();
 	}
 
-	public void runShell() throws IOException, InterruptedException {
+	public boolean runShell() throws IOException, InterruptedException {
+		stopMusic=true;
 		String line;
-		while (true) {
+//		while (true) 
+		{
 			System.out.println("Start");
 			semaphore.await();
 //			line = omry.listen();
@@ -69,7 +74,9 @@ public class Kernel {
 			line = ioManager.readFromConsole(); //ReadFile to know which function
 			System.out.println(line);
 			if (line.contains("quit")) {
-				break;
+//				break;
+				omry.talk("See you soon, Bye!");
+				return false;
 			}
 			else {
 				Task newTask = answer(line); //
@@ -81,6 +88,7 @@ public class Kernel {
 			}
 			Thread.sleep(2000);
 		}
+		return true;
 	}
 	public Task answer(String question) throws IOException, InterruptedException
 	{
@@ -90,7 +98,17 @@ public class Kernel {
 			omry.talk(bashCommandsDoc());
 			semaphore.signal();
 			return null;
-		}if (question.contains("make alarm at") || question.contains("alarm at") || question.contains("set meeting at")) {
+		}
+		if(question.contains("music"))
+		{
+			stopMusic=false;
+			return new Music(this, tcb, System.currentTimeMillis()+100, omry, semaphore);
+		}
+		if(question.contains("weather"))
+		{
+			return new Weather(this, tcb, System.currentTimeMillis()+100, omry, semaphore);
+		}
+		if (question.contains("make alarm at") || question.contains("alarm at") || question.contains("set meeting at")) {
 			return Alarm_Meeting(question, tcb);
 		}
 		else if (question.contains("time")) {
@@ -198,5 +216,9 @@ public class Kernel {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		new Kernel();
+	}
+	public boolean stopMusic()
+	{
+		return stopMusic;
 	}
 }
