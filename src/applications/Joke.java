@@ -1,6 +1,7 @@
 package applications;
 
 
+
 import core.Kernel;
 import core.OMRY;
 import core.Semaphore;
@@ -26,7 +27,6 @@ public class Joke extends Task implements Runnable{
 			e.printStackTrace();
 		}
 		getKernal().getTaskManager().terminateRunnigTask();
-		
 	}
 	private static String joke() {
 		String[] x = { "Today at the bank, an old lady asked me to help check her balance. So I pushed her over",

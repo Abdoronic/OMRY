@@ -64,9 +64,9 @@ public class Kernel {
 		while (true) {
 			System.out.println("Start");
 			semaphore.await();
-			line = omry.listen();
+//			line = omry.listen();
 			semaphore.signal();
-//			line = ioManager.readFromConsole(); //ReadFile to know which function
+			line = ioManager.readFromConsole(); //ReadFile to know which function
 			System.out.println(line);
 			if (line.contains("quit")) {
 				break;
@@ -93,9 +93,6 @@ public class Kernel {
 		}if (question.contains("make alarm at") || question.contains("alarm at") || question.contains("set meeting at")) {
 			return Alarm_Meeting(question, tcb);
 		}
-//		else if(question.contains("set meeting at")) {
-//			return new Meeting(this, pcb, deadline, "", omry);
-//		}
 		else if (question.contains("time")) {
 			return new Time(this, tcb, System.currentTimeMillis()+500, omry, semaphore);
 		} else if (question.contains("call")) {
@@ -103,14 +100,14 @@ public class Kernel {
 			String[] x=question.split(" ");
 			for(int i=0;i<x.length;i++) {
 				if(x[i].equals("call")) {
-					return new Call(this, tcb, System.currentTimeMillis(), omry, x[i+1], semaphore);
+					return new Call(this, tcb, System.currentTimeMillis()+100, omry, x[i+1], semaphore);
 				}
 			}
 			return null;
 		} else if (Greeting(question)) {
-			return new Greeting(this, tcb, System.currentTimeMillis(), omry, semaphore);
+			return new Greeting(this, tcb, System.currentTimeMillis()+100, omry, semaphore);
 		} else if (question.contains("joke")) {
-			return new Joke(this, tcb, System.currentTimeMillis(), omry, semaphore);
+			return new Joke(this, tcb, System.currentTimeMillis()+100, omry, semaphore);
 		} 
 		else {
 			semaphore.await();
@@ -155,6 +152,7 @@ public class Kernel {
 			Date date = new Date();
 			date.setHours(hours);
 			date.setMinutes(minutes);
+			date.setSeconds(0);
 			long millis = date.getTime() ;
 			Task t;
 			if(type==1)

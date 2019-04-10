@@ -1,5 +1,8 @@
 package core;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -17,21 +20,28 @@ public class TaskManager {
 	private ArrayList<Task> blockedQueue;
 	private PriorityQueue<Task> lateQueue;
 	private Task runningTask;
+	private PrintWriter log;
 	
-	public TaskManager() {
+	public TaskManager() throws FileNotFoundException {
 		readyQueue = new PriorityQueue<>();
 		blockedQueue = new ArrayList<>();
 		lateQueue = new PriorityQueue<>();
+		System.err.println(new File("").getAbsolutePath());
+		log = new PrintWriter(new File(new File("").getAbsolutePath()+"\\src\\disk\\log.txt"));
 	}
 	
 	public void addTask(Task newTask) {
 		readyQueue.add(newTask);
 		runNextTask();
 	}
-	
+	public PrintWriter getLog()
+	{
+		return log;
+	}
 	@SuppressWarnings("deprecation")
 	public void runNextTask() {
 		Task pre = runningTask;
+		Object susp=null,run=null;
 		if(pre != null && !readyQueue.isEmpty() && pre.getPcb().getProcessState() != Status.TERMINATED &&pre.getDeadline() < readyQueue.peek().getDeadline())
 			return;
 		if(readyQueue.isEmpty())
@@ -41,7 +51,7 @@ public class TaskManager {
 			next.getPcb().setProcessState(Status.PASSED_DEADLINE);
 			lateQueue.add(next);
 			runNextTask();
-			System.err.println("here1");
+			System.err.println("late");
 		} else {
 			if(next.getPcb().getProcessState() == Status.NEW)
 			{
@@ -55,6 +65,7 @@ public class TaskManager {
 				}
 			}
 			System.err.println("run mada fa");
+			run=new String("Process Number "+next.getPcb().getProcessID()+" is running");
 			next.getPcb().setProcessState(Status.RUNNING);
 			runningTask = next;
 		}
@@ -62,18 +73,27 @@ public class TaskManager {
 			synchronized (pre) {
 				pre.suspend();
 				System.err.println("Wait mada fa");
+				susp=new String("Process Number "+pre.getPcb().getProcessID()+" is suspended");
 			}
 			readyQueue.add(pre);
 			pre.getPcb().setProcessState(Status.READY);
 		}
+		if(susp!=null)
+			log.println(susp.toString());
+		if(run!=null)
+			log.println(run.toString());
+		log.flush();
 	}
 	
 	public void terminateRunnigTask() {
 		Task curr = runningTask;
 		curr.getPcb().setProcessState(Status.TERMINATED);
+		log.println("Process Number "+curr.getPcb().getProcessID()+" is finished");
+		log.flush();
 		runNextTask();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void respondToListenInterrupt() {
 		if(runningTask != null) {
 			runningTask.getPcb().setProcessState(Status.BLOCKED);

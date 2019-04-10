@@ -1,5 +1,8 @@
 package task;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import core.Kernel;
 import core.OMRY;
 import core.Semaphore;
@@ -38,7 +41,6 @@ public class Task extends Thread implements Comparable<Task> {
 	public Kernel getKernal() {
 		return kernal;
 	}
-
 	@Override
 	public int compareTo(Task o) {
 		return (int)(deadline - o.deadline);

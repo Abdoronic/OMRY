@@ -14,7 +14,7 @@ import task.Task;
 
 public class Alarm extends Task implements Runnable{
 
-	public Alarm(Kernel kernal, TCB tcb, long deadline, OMRY omry, Semaphore semaphore) {
+	public Alarm(Kernel kernal, TCB tcb, long deadline, OMRY omry, Semaphore semaphore){
 		super(kernal, tcb, deadline, omry, semaphore);
 	}
 	@Override

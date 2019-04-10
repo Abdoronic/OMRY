@@ -13,12 +13,13 @@ public class OMRY {
 	TextToSpeech tts ;
 	public OMRY() throws FileNotFoundException {
 		this.pythonPath = new File("").getAbsolutePath().replaceAll("\\\\", "\\\\\\\\")+"\\\\temp.py";
+		System.out.println(pythonPath);
 		tts = new TextToSpeech();
 		tts.setVoice("dfki-poppy-hsmm");
 	}
 	public void talk(String s) throws IOException, InterruptedException
 	{
-		System.out.println("Speak: s");
+		System.out.println("Speak:");
 		tts.speak(s,2.0f,false,false);
 		Thread.sleep(1500);
 	}

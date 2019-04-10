@@ -1,5 +1,6 @@
 package applications;
 
+
 import core.Kernel;
 import core.OMRY;
 import core.Semaphore;
@@ -26,7 +27,6 @@ public class Meeting extends Task implements Runnable{
 			e.printStackTrace();
 		}
 		getKernal().getTaskManager().terminateRunnigTask();
-		
 	}
 
 }
