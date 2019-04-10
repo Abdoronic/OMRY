@@ -1,8 +1,5 @@
 package task;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-
 import core.Kernel;
 import core.OMRY;
 import core.Semaphore;
