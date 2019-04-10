@@ -69,9 +69,9 @@ public class Kernel {
 		{
 			System.out.println("Start");
 			semaphore.await();
-//			line = omry.listen();
+			line = omry.listen();
 			semaphore.signal();
-			line = ioManager.readFromConsole(); //ReadFile to know which function
+//			line = ioManager.readFromConsole(); //ReadFile to know which function
 			System.out.println(line);
 			if (line.contains("quit")) {
 //				break;
