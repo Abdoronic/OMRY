@@ -11,7 +11,7 @@ public class DummyProg extends Task{
 	private String var;
 	
 	public DummyProg(Kernel kernal, TCB tcb, long deadline, String var, OMRY omry, Semaphore s) {
-		super(kernal, tcb, deadline, omry, s);
+		super(kernal, tcb, deadline, omry, s,"DummyProg");
 		this.var = var;
 	}
 	
