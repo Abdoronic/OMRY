@@ -19,7 +19,7 @@ public class OMRY {
 	}
 	public void talk(String s) throws IOException, InterruptedException
 	{
-		System.out.println("Speak:");
+//		System.out.println("Speak:");
 		tts.speak(s,2.0f,false,false);
 		Thread.sleep(1500);
 	}

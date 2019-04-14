@@ -11,7 +11,7 @@ import task.Task;
 public class Joke extends Task implements Runnable{
 
 	public Joke(Kernel kernal, TCB pcb, long deadline, OMRY omry, Semaphore s) {
-		super(kernal, pcb, deadline, omry, s);
+		super(kernal, pcb, deadline, omry, s,"Joke");
 	}
 
 	@Override

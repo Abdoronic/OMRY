@@ -10,15 +10,19 @@ public class Task extends Thread implements Comparable<Task> {
 	private long deadline;
 	private OMRY omry;
 	private Semaphore semaphore;
-	public Task(Kernel kernal, TCB pcb, long deadline, OMRY omry, Semaphore semaphore) {
+	private String name;
+	public Task(Kernel kernal, TCB pcb, long deadline, OMRY omry, Semaphore semaphore, String name) {
 		super();
 		this.kernal = kernal;
 		this.pcb = pcb;
 		this.deadline = deadline;
 		this.omry = omry;
 		this.semaphore = semaphore;
+		this.name = name;
 	}
-	
+	public String getNameTask(){
+		return name;
+	}
 	public Semaphore getSemaphore(){
 		return semaphore;
 	}

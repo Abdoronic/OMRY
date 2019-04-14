@@ -11,7 +11,7 @@ public class Meeting extends Task implements Runnable{
 
 	String group;
 	public Meeting(Kernel kernal, TCB pcb, long deadline, String group, OMRY omry, Semaphore s) {
-		super(kernal, pcb, deadline, omry, s);
+		super(kernal, pcb, deadline, omry, s, "Meeting");
 		this.group = group;
 	}
 	@Override

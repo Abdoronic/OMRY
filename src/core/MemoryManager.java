@@ -1,11 +1,11 @@
 package core;
 
 public class MemoryManager {
-	private byte[] memory;
+	private String[] memory;
 	int stackPtr = 0;
 	
 	public MemoryManager(int meomorySize) {
-		memory = new byte[meomorySize];
+		memory = new String[meomorySize];
 		stackPtr = 0;
 	}
 	
@@ -25,5 +25,11 @@ public class MemoryManager {
 	
 	public int remainingMemory() { //Returns remaining bytes
 		return memory.length - stackPtr;
+	}
+	public void addInMemory(String value){
+		memory[stackPtr]=value;
+	}
+	public String getFromMemory(){
+		return memory[stackPtr];
 	}
 }

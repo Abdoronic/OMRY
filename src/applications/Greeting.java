@@ -12,7 +12,7 @@ public class Greeting extends Task implements Runnable{
 	
 	
 	public Greeting(Kernel kernal, TCB pcb, long deadline, OMRY omry, Semaphore s) {
-		super(kernal, pcb, deadline, omry, s);
+		super(kernal, pcb, deadline, omry, s, "Greeting");
 	}
 
 	@Override

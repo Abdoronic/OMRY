@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.PriorityQueue;
 
 import task.Status;
@@ -65,7 +66,8 @@ public class TaskManager {
 				}
 			}
 			System.err.println("run mada fa");
-			run=new String("Process Number "+next.getPcb().getProcessID()+" is running");
+			Date d = new Date();
+			run=new String("Process Number "+next.getPcb().getProcessID()+" "+pre.getNameTask()+" is running at "+d.toString());
 			next.getPcb().setProcessState(Status.RUNNING);
 			runningTask = next;
 		}
@@ -73,7 +75,8 @@ public class TaskManager {
 			synchronized (pre) {
 				pre.suspend();
 				System.err.println("Wait mada fa");
-				susp=new String("Process Number "+pre.getPcb().getProcessID()+" is suspended");
+				Date d= new Date();
+				susp=new String("Process Number "+pre.getPcb().getProcessID()+" "+pre.getNameTask()+" is suspended at "+d.toString()+"\n");
 			}
 			readyQueue.add(pre);
 			pre.getPcb().setProcessState(Status.READY);
@@ -88,7 +91,8 @@ public class TaskManager {
 	public void terminateRunnigTask() {
 		Task curr = runningTask;
 		curr.getPcb().setProcessState(Status.TERMINATED);
-		log.println("Process Number "+curr.getPcb().getProcessID()+" is finished");
+		Date d= new Date();
+		log.println("Process Number "+curr.getPcb().getProcessID()+" "+curr.getNameTask()+" is finished at "+d.toString()+"\n");
 		log.flush();
 		runNextTask();
 	}

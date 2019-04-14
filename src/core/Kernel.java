@@ -68,18 +68,24 @@ public class Kernel {
 //		while (true) 
 		{
 			System.out.println("Start");
+			getMeomoryManager().allocateMemory(1);
 			semaphore.await();
-			line = omry.listen();
+//			line = omry.listen();
+//			getMeomoryManager().addInMemory(omry.listen());
 			semaphore.signal();
-//			line = ioManager.readFromConsole(); //ReadFile to know which function
-			System.out.println(line);
-			if (line.contains("quit")) {
+			getMeomoryManager().addInMemory(ioManager.readFromConsole());//ReadFile to know which function
+//			line = ioManager.readFromConsole(); 
+//			System.out.println(line);
+			System.out.println(getMeomoryManager().getFromMemory());
+			if (getMeomoryManager().getFromMemory().contains("quit")) {
 //				break;
+				getMeomoryManager().releaseMemory(1);
 				omry.talk("See you soon, Bye!");
 				return false;
 			}
 			else {
-				Task newTask = answer(line); //
+				Task newTask = answer(getMeomoryManager().getFromMemory()); //
+				getMeomoryManager().releaseMemory(1);
 				if(newTask != null)
 				{	
 					taskManager.addTask(newTask);
@@ -161,12 +167,15 @@ public class Kernel {
 		try {
 			if (type == -1)
 				throw new Exception("Type can not be specified");
-			String h=tmp[i].split(":")[0];
-			String m=tmp[i].split(":")[1];
-			int hours = Integer.parseInt(h);
-			int minutes = Integer.parseInt(m);
+			getMeomoryManager().allocateMemory(1);
+			getMeomoryManager().addInMemory(tmp[i].split(":")[0]);//hours
+			int hours = Integer.parseInt(getMeomoryManager().getFromMemory());
+			getMeomoryManager().allocateMemory(1);
+			getMeomoryManager().addInMemory(tmp[i].split(":")[1]);//minus
+			int minutes = Integer.parseInt(getMeomoryManager().getFromMemory());
+			getMeomoryManager().releaseMemory(2);
 			System.out.println(Arrays.toString(tmp));
-			System.out.println(h+"   "+m);
+			System.out.println(hours+"   "+minutes);
 			Date date = new Date();
 			date.setHours(hours);
 			date.setMinutes(minutes);
@@ -178,7 +187,7 @@ public class Kernel {
 			else
 				t = new Alarm(this, tcb, millis, omry, semaphore);
 			semaphore.await();
-			omry.talk("Alarm Setted at "+h+":"+m);
+			omry.talk("Alarm Setted at "+hours+":"+minutes);
 			semaphore.signal();
 			return t;
 		} catch (Exception e) {

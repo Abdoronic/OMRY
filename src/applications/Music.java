@@ -15,7 +15,7 @@ import task.Task;
 public class Music extends Task implements Runnable{
 
 	public Music(Kernel kernal, TCB tcb, long deadline, OMRY omry, Semaphore semaphore){
-		super(kernal, tcb, deadline, omry, semaphore);
+		super(kernal, tcb, deadline, omry, semaphore,"Music");
 	}
 	@Override
 	public void run() {

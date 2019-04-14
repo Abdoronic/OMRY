@@ -13,7 +13,7 @@ import task.Task;
 public class Time extends Task implements Runnable{
 	
 	public Time(Kernel kernal, TCB pcb, long deadline, OMRY omry, Semaphore s) {
-		super(kernal, pcb, deadline, omry, s);
+		super(kernal, pcb, deadline, omry, s,"Time");
 	}
 
 	@Override

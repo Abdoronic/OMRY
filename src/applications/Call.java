@@ -11,7 +11,7 @@ public class Call extends Task implements Runnable{
 	
 	String contact;
 	public Call(Kernel kernal, TCB pcb, long deadline, OMRY omry, String contact, Semaphore s) {
-		super(kernal, pcb, deadline, omry, s);
+		super(kernal, pcb, deadline, omry, s, "Call");
 		this.contact = contact;
 	}
 
