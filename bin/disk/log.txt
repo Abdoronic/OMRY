@@ -1,6 +1,6 @@
-Process Number 0 is running
-Process Number 0 is finished
-Process Number 1 is running
-Process Number 1 is finished
-Process Number 2 is running
-Process Number 2 is finished
+Process Number 0 Greeting is running at Sun Apr 21 14:43:30 EET 2019
+Process Number 0 Greeting is finished at Sun Apr 21 14:43:35 EET 2019
+
+Process Number 2 Time is running at Sun Apr 21 14:44:13 EET 2019
+Process Number 2 Time is finished at Sun Apr 21 14:44:15 EET 2019
+

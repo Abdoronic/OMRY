@@ -71,7 +71,8 @@ public class ActivityMonitor extends JFrame{
 	
 	public static void main(String[] args) throws InterruptedException {
 		ActivityMonitor am = new ActivityMonitor();
-		while(true) {
+		while(true) 
+		{
 			am.taskSwappedIn();
 			
 			//Task is running

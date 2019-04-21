@@ -1,32 +1,6 @@
-Process Number 1 is running
-Process Number 1 Greeting is finished at Sun Apr 14 23:42:05 EET 2019
-Process Number 2 is running
-Process Number 2 Time is finished at Sun Apr 14 23:42:14 EET 2019
-Process Number 3 is running
-Process Number 3 Alarm is suspended at Sun Apr 14 23:42:39 EET 2019
-Process Number 4 is running
-Process Number 4 Greeting is finished at Sun Apr 14 23:42:43 EET 2019
-Process Number 3 is running
-Process Number 3 Alarm is suspended at Sun Apr 14 23:42:50 EET 2019
-Process Number 5 is running
-Process Number 5 Joke is finished at Sun Apr 14 23:42:52 EET 2019
-Process Number 3 is running
-Process Number 3 Alarm is suspended at Sun Apr 14 23:43:10 EET 2019
-Process Number 6 is running
-Process Number 6 Weather is finished at Sun Apr 14 23:43:11 EET 2019
-Process Number 3 is running
-Process Number 3 Alarm is suspended at Sun Apr 14 23:43:44 EET 2019
-Process Number 8 is running
-Process Number 8 Greeting is finished at Sun Apr 14 23:43:49 EET 2019
-Process Number 3 is running
-Process Number 3 Alarm is finished at Sun Apr 14 23:43:59 EET 2019
-Process Number 7 is running
-Process Number 7 Meeting is suspended at Sun Apr 14 23:44:21 EET 2019
-Process Number 9 is running
-Process Number 9 Weather is finished at Sun Apr 14 23:44:22 EET 2019
-Process Number 7 is running
-Process Number 7 Meeting is suspended at Sun Apr 14 23:44:30 EET 2019
-Process Number 10 is running
-Process Number 10 Call is finished at Sun Apr 14 23:44:32 EET 2019
-Process Number 7 is running
-Process Number 7 Meeting is finished at Sun Apr 14 23:45:01 EET 2019
+Process Number 0 Greeting is running at Sun Apr 21 15:08:54 EET 2019
+Process Number 0 Greeting is finished at Sun Apr 21 15:08:59 EET 2019
+
+Process Number 1 Joke is running at Sun Apr 21 15:09:03 EET 2019
+Process Number 1 Joke is finished at Sun Apr 21 15:09:04 EET 2019
+

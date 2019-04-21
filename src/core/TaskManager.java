@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.PriorityQueue;
 
+import GUI.ActivityMonitor;
 import task.Status;
 import task.Task;
 
@@ -22,8 +23,10 @@ public class TaskManager {
 	private PriorityQueue<Task> lateQueue;
 	private Task runningTask;
 	private PrintWriter log;
+	private ActivityMonitor am;
 	
-	public TaskManager() throws FileNotFoundException {
+	public TaskManager(ActivityMonitor am) throws FileNotFoundException {
+		this.am=am;
 		readyQueue = new PriorityQueue<>();
 		blockedQueue = new ArrayList<>();
 		lateQueue = new PriorityQueue<>();
@@ -41,6 +44,8 @@ public class TaskManager {
 	}
 	@SuppressWarnings("deprecation")
 	public void runNextTask() {
+		//out
+		
 		Task pre = runningTask;
 		Object susp=null,run=null;
 		if(pre != null && !readyQueue.isEmpty() && pre.getPcb().getProcessState() != Status.TERMINATED &&pre.getDeadline() < readyQueue.peek().getDeadline())
@@ -67,7 +72,7 @@ public class TaskManager {
 			}
 			System.err.println("run mada fa");
 			Date d = new Date();
-			run=new String("Process Number "+next.getPcb().getProcessID()+" "+pre.getNameTask()+" is running at "+d.toString());
+			run=new String("Process Number "+next.getPcb().getProcessID()+" "+next.getNameTask()+" is running at "+d.toString());
 			next.getPcb().setProcessState(Status.RUNNING);
 			runningTask = next;
 		}
@@ -84,7 +89,12 @@ public class TaskManager {
 		if(susp!=null)
 			log.println(susp.toString());
 		if(run!=null)
+		{
 			log.println(run.toString());
+			//in
+			am.taskSwappedOut();
+			am.taskSwappedIn();
+		}
 		log.flush();
 	}
 	

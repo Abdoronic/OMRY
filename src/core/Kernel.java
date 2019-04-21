@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 
-
+import GUI.ActivityMonitor;
 import applications.Alarm;
 import applications.Call;
 import applications.Greeting;
@@ -28,38 +28,17 @@ public class Kernel {
 	private OMRY omry;
 	static int TC = 1;
 	private long processID;
+	private ActivityMonitor am;
 	public Kernel() throws IOException, InterruptedException {
+		am = new ActivityMonitor();
 		meomoryManager = new MemoryManager(256 << 20);
 		fileSystem = new FileSystem();
 		ioManager = new IOManager();
-		taskManager = new TaskManager();
+		taskManager = new TaskManager(am);
 		ioManager.writeToConsole("OMRY is turned on!");
 		omry = new OMRY();
 		processID = 0;
 		semaphore = new Semaphore(true);
-//		DummyProg p1 = new DummyProg(this, new TCB(TC++, 0, false, Status.NEW),
-//				System.currentTimeMillis() + 10000, "P1");
-//		taskManager.addTask(p1);
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		DummyProg p2 = new DummyProg(this, new TCB(TC++, 0, false, Status.NEW),
-//				System.currentTimeMillis() + 3000, "P2");
-//		taskManager.addTask(p2);
-//		
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		DummyProg p3 = new DummyProg(this, new TCB(TC++, 0, false, Status.NEW),
-//				System.currentTimeMillis() + 1000, "P3");
-//		taskManager.addTask(p3);
-		
-//		runShell();
 	}
 
 	public boolean runShell() throws IOException, InterruptedException {
@@ -71,7 +50,7 @@ public class Kernel {
 			getMeomoryManager().allocateMemory(1);
 			semaphore.await();
 //			line = omry.listen();
-//			getMeomoryManager().addInMemory(omry.listen());
+//			getMeomoryManager().addInMemory(omry.listen());//List to the Voice
 			semaphore.signal();
 			getMeomoryManager().addInMemory(ioManager.readFromConsole());//ReadFile to know which function
 //			line = ioManager.readFromConsole(); 
